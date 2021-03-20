@@ -23,7 +23,7 @@ public class IdlePanel extends javax.swing.JPanel {
 
     private Image background;
     private Thread systemInfoThread;
-    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
     /**
      * Creates new form IdlePanel
@@ -185,8 +185,8 @@ public class IdlePanel extends javax.swing.JPanel {
     }
 
     private void updateLabels() {
-        cpuUsageLabel.setText(SystemInfoService.getCpuUsagev2() + "%");
-        cpuUsageBar.setValue(SystemInfoService.getCpuUsagev2());
+        cpuUsageLabel.setText(SystemInfoService.getCpuUsage() + "%");
+        cpuUsageBar.setValue(SystemInfoService.getCpuUsage());
 
         ramUsageLabel.setText(SystemInfoService.getMemoryUsage() + "%");
         ramUsageBar.setValue(SystemInfoService.getMemoryUsage());

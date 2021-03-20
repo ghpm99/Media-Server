@@ -6,8 +6,6 @@
 package media.server.global;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import media.server.GUI.IdlePanel;
 import media.server.interfaces.LoadingInstanceListener;
 import media.server.socket.ServerSocketService;
@@ -25,16 +23,13 @@ public class Instances {
     private static IdlePanel idlePanel;
 
     public static void init() {
-        
-        try {
-            initSocket();
-            Thread.sleep(1000);
-            initIdlePanel();
-            Thread.sleep(1000);
-            notifyListenersCompletes();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Instances.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        initSocket();
+
+        initIdlePanel();
+
+        notifyListenersCompletes();
+
     }
 
     private static void initSocket() {
@@ -63,14 +58,14 @@ public class Instances {
             s.notify(msg);
         });
     }
-    
-    private static void notifyListenersCompletes(){
+
+    private static void notifyListenersCompletes() {
         listeners.forEach((s) -> {
             s.completed();
         });
     }
 
-    public static ServerSocketService getSocket(){
+    public static ServerSocketService getSocket() {
         if (socket == null) {
             throw new NullPointerException("Uninitialized instance");
         } else {
@@ -86,10 +81,10 @@ public class Instances {
         }
     }
 
-    public static void exit(){
-        if(socket != null){
+    public static void exit() {
+        if (socket != null) {
             socket.close();
         }
     }
-    
+
 }
