@@ -1,0 +1,20 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.loading{	
+	-fx-background-image:url("../images/loading.gif");
+	-fx-background-size:100%;
+}
+.idle{	
+	-fx-background-image:url("../images/fundo9.gif");
+	-fx-background-size:100%;
+}
+.progress:indeterminate .track{
+	-fx-background-color:transparent;
+	
+}
+.progress:determinate .track{
+	-fx-background-color:transparent;
+}
+
+.progress:determinate .bar{
+	-fx-background-color:darkgray;
+}
