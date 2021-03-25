@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
+import media.global.Instances;
 
 public class UiToolkit {
 
@@ -18,6 +19,8 @@ public class UiToolkit {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Instances.exit();
+			System.exit(0);
 			return null;
 		}
 	}

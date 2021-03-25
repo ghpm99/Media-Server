@@ -2,21 +2,35 @@ package media.global;
 
 import java.util.ArrayList;
 
+import javafx.stage.Stage;
+import media.gui.controller.IdleStageController;
+import media.gui.controller.MediaStageController;
+import media.gui.controller.YoutubePlayerController;
 import media.interfaces.LoadingInstanceListener;
+import media.service.MessageSocketService;
 import media.socket.ServerSocketService;
 
 public class Instances {
 
 	private static final ArrayList<LoadingInstanceListener> listeners = new ArrayList<>();
 
+	public static MessageSocketService messageService = new MessageSocketService();
+
 	private static ServerSocketService socket;
 
-	public static void init() {
+	private static Stage primaryStage;
 
+	private static IdleStageController idleStageController;
+
+	private static YoutubePlayerController youtubePlayerController;
+	
+	private static MediaStageController mediaStageController;
+
+	public static void init(Stage primaryStage) {
+
+		Instances.primaryStage = primaryStage;
 		initSocket();
-		
-		initIdlePanel();
-		
+		initControllers();
 		notifyListenersCompletes();
 
 	}
@@ -27,9 +41,17 @@ public class Instances {
 		notifyListeners("Socket iniciado");
 	}
 
-	private static void initIdlePanel() {
+	private static void initControllers() {
+		idleStageController = new IdleStageController(primaryStage);
+		socket.addListener(idleStageController);
+
+		youtubePlayerController = new YoutubePlayerController();
+		socket.addListener(youtubePlayerController);
 		
-		notifyListeners("Painel criado");
+		mediaStageController = new MediaStageController(primaryStage);
+		socket.addListener(mediaStageController);
+
+		notifyListeners("Controllers criados");
 	}
 
 	public static void addListener(LoadingInstanceListener listener) {
@@ -54,7 +76,7 @@ public class Instances {
 		});
 	}
 
-	public static ServerSocketService getSocket() {
+	public synchronized static ServerSocketService getSocket() {
 		if (socket == null) {
 			throw new NullPointerException("Uninitialized instance");
 		} else {
@@ -66,6 +88,18 @@ public class Instances {
 		if (socket != null) {
 			socket.close();
 		}
+	}
+
+	public static IdleStageController getIdleStageController() {
+		return idleStageController;
+	}	
+
+	public static YoutubePlayerController getYoutubePlayerController() {		
+		return youtubePlayerController;
+	}
+	
+	public static MediaStageController getMediaStageController() {
+		return mediaStageController;
 	}
 
 }

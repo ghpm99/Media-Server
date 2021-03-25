@@ -1,8 +1,6 @@
 package media.gui.controller;
 
 import javafx.application.Platform;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -38,22 +36,10 @@ public class LoadingStageController implements LoadingInstanceListener {
 	}
 
 	private void loadingTask() {
-		Service<Void> loading = new Service<Void>() {
 
-			@Override
-			protected Task<Void> createTask() {
-				// TODO Auto-generated method stub
-				return new Task<Void>() {
-
-					@Override
-					protected Void call() throws Exception {
-						// TODO Auto-generated method stub
-						Instances.init();
-						return null;
-					}
-				};
-			}
-		};
+		Thread loading = new Thread(() -> {
+			Instances.init(primaryStage);
+		});
 
 		loading.start();
 	}
@@ -71,7 +57,6 @@ public class LoadingStageController implements LoadingInstanceListener {
 			}
 		});
 
-		
 	}
 
 	@Override
@@ -84,10 +69,12 @@ public class LoadingStageController implements LoadingInstanceListener {
 
 	private void changeIdleStage() {
 
-		IdleStageController controller = new IdleStageController(primaryStage);
-		Parent root = UiToolkit.loadingFXML(Main.class.getResource("fxml/IdleStage.fxml"), controller);
+		Platform.runLater(() -> {
+			Parent root = UiToolkit.loadingFXML(Main.class.getResource("fxml/IdleStage.fxml"),
+					Instances.getIdleStageController());
 
-		primaryStage.getScene().setRoot(root);
+			primaryStage.getScene().setRoot(root);
+		});
 
 	}
 
