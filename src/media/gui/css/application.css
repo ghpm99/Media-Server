@@ -1,11 +1,11 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 .loading{	
 	-fx-background-image:url("../images/loading.gif");
-	-fx-background-size:100%;
+	-fx-background-size:100.0%;
 }
 .idle{	
 	-fx-background-image:url("../images/fundo9.gif");
-	-fx-background-size:100%;
+	-fx-background-size:100.0%;
 }
 .progress:indeterminate .track{
 	-fx-background-color:transparent;
@@ -17,4 +17,28 @@
 
 .progress:determinate .bar{
 	-fx-background-color:darkgray;
+}
+.bar-chart:vertical{
+	
+	
+}
+.chart-plot-background {
+	-fx-background-color:transparent;	
+}
+.default-color0.chart-bar {
+   -fx-background-color:linear-gradient(to top,crimson,transparent);
+}
+.default-color1.chart-bar {
+  -fx-background-color:linear-gradient(to bottom,firebrick,transparent);
+}
+.label{
+	-fx-text-fill:white;	
+}
+.list-view{
+	
+}
+.background-media{	
+  -fx-background-image:url("../images/media.jpg");
+	-fx-background-size:100.0%;
+ 
 }

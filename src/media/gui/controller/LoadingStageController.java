@@ -52,7 +52,7 @@ public class LoadingStageController implements LoadingInstanceListener {
 			public void run() {
 				// TODO Auto-generated method stub
 				statusLoadingLabel.setText(msg);
-				progressValue += 0.4;
+				progressValue += 0.3;
 				loadingProgressBar.setProgress(progressValue);
 			}
 		});

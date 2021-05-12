@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
 
-
-<AnchorPane prefHeight="570.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="570.0" prefWidth="931.0" styleClass="background-media" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MediaView fx:id="mediaView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <BarChart fx:id="barChart" animated="false" barGap="0.0" categoryGap="0.0" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="7.0" layoutY="1.0" legendVisible="false" prefHeight="570.0" prefWidth="931.0" verticalGridLinesVisible="false" verticalZeroLineVisible="false" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <xAxis>
+          <CategoryAxis animated="false" tickLabelGap="0.0" tickLabelsVisible="false" tickMarkVisible="false" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis animated="false" forceZeroInRange="false" lowerBound="-50.0" minorTickVisible="false" side="TOP" tickLabelGap="0.0" tickLabelsVisible="false" tickMarkVisible="false" tickUnit="10.0" upperBound="50.0" />
+        </yAxis>
+      </BarChart>
+      <AnchorPane fx:id="controls" layoutX="59.0" layoutY="165.0" opacity="0.8" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ListView fx:id="playlistView" layoutX="716.0" layoutY="14.0" prefHeight="540.0" prefWidth="300.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+            <Label fx:id="labelTimeMedia" layoutX="15.0" layoutY="524.0" prefHeight="17.0" prefWidth="389.0" text="00:00:00/00:00:00" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="15.0" />
+            <ProgressBar fx:id="barTimeMedia" layoutX="14.0" layoutY="531.0" prefHeight="18.0" prefWidth="590.0" styleClass="progress" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="327.0" />
+            <Label fx:id="mediaName" layoutX="15.0" layoutY="15.0" prefHeight="17.0" prefWidth="590.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="326.0" AnchorPane.topAnchor="15.0" />
+         </children>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="255.0" offsetX="10.0" offsetY="10.0" radius="127.0" width="255.0" />
+         </effect>
+      </AnchorPane>
    </children>
 </AnchorPane>

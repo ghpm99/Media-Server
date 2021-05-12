@@ -6,9 +6,7 @@ public class MediaMessageSocketModel extends MessageSocketModel{
 	private String path;
 	
 	private String fileName;
-	
-	private CommandsMedia command;
-	
+		
 	public MediaMessageSocketModel() {
 		// TODO Auto-generated constructor stub
 		setCode(4);
@@ -29,15 +27,11 @@ public class MediaMessageSocketModel extends MessageSocketModel{
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-
-	public CommandsMedia getCommand() {
-		return command;
-	}
-
-	public void setCommand(CommandsMedia command) {
-		this.command = command;
-	}
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getFileName();
+	}
 	
 }

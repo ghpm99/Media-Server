@@ -61,6 +61,7 @@ public class ClientSocketModel {
 				System.out.println("Codigo: " + code);
 				if (code == -1) {
 					close();
+					continue;
 				}
 				head = new HeadMessageSocketModel();
 
@@ -110,7 +111,10 @@ public class ClientSocketModel {
 	private void processMessage(ProcessedMessageSocketModel message) {
 		if (message == null)
 			return;
-		messageReceived(message.getMessage());
+
+		if (message.getMessage() != null)
+			messageReceived(message.getMessage());
+		
 		if (message.isNeedResponse()) {
 			sendMessage(message.getResponse());
 		}

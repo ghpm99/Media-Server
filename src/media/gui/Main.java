@@ -22,8 +22,8 @@ public class Main {
 
 		primaryStage.setMaximized(true);
 
-		primaryStage.setScene(scene);
-
+		primaryStage.setScene(scene);	
+		
 		primaryStage.setOnCloseRequest((s) -> {
 			Platform.exit();
 			Instances.exit();

@@ -7,7 +7,9 @@ import media.gui.controller.IdleStageController;
 import media.gui.controller.MediaStageController;
 import media.gui.controller.YoutubePlayerController;
 import media.interfaces.LoadingInstanceListener;
+import media.service.MediaService;
 import media.service.MessageSocketService;
+import media.service.SystemCommandService;
 import media.socket.ServerSocketService;
 
 public class Instances {
@@ -23,14 +25,20 @@ public class Instances {
 	private static IdleStageController idleStageController;
 
 	private static YoutubePlayerController youtubePlayerController;
-	
+
 	private static MediaStageController mediaStageController;
+
+	private static SystemCommandService systemCommandService;
+	
+	private static MediaService mediaService;
 
 	public static void init(Stage primaryStage) {
 
 		Instances.primaryStage = primaryStage;
 		initSocket();
 		initControllers();
+		initServices();
+		initMediaService();
 		notifyListenersCompletes();
 
 	}
@@ -47,13 +55,26 @@ public class Instances {
 
 		youtubePlayerController = new YoutubePlayerController();
 		socket.addListener(youtubePlayerController);
-		
+
 		mediaStageController = new MediaStageController(primaryStage);
 		socket.addListener(mediaStageController);
 
 		notifyListeners("Controllers criados");
 	}
 
+	private static void initServices() {
+		systemCommandService = new SystemCommandService(primaryStage);
+		socket.addListener(systemCommandService);
+		notifyListeners("Services criados");
+	}
+
+	private static void initMediaService() {
+		mediaService = new MediaService();
+		mediaService.init();
+		mediaService.addMediaListener(getMediaStageController());
+		notifyListeners("Media iniciado");
+	}
+	
 	public static void addListener(LoadingInstanceListener listener) {
 		listeners.add(listener);
 	}
@@ -92,14 +113,18 @@ public class Instances {
 
 	public static IdleStageController getIdleStageController() {
 		return idleStageController;
-	}	
+	}
 
-	public static YoutubePlayerController getYoutubePlayerController() {		
+	public static YoutubePlayerController getYoutubePlayerController() {
 		return youtubePlayerController;
 	}
-	
+
 	public static MediaStageController getMediaStageController() {
 		return mediaStageController;
 	}
 
+	public static MediaService getMediaService() {
+		return mediaService;
+	}
+	
 }

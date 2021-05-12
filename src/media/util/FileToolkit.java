@@ -12,10 +12,9 @@ public class FileToolkit {
 			Arrays.asList(".aif", ".aiff", ".m3u8", ".mp3", ".mp4", ".m4a", ".m4v", ".wav"));
 
 	public static FileMediaMessageSocketModel fileToMediaFileSocket(File file) {
-		FileMediaMessageSocketModel fileMedia = new FileMediaMessageSocketModel();
-
-		fileMedia.setPath(file.toURI().toString());
-		fileMedia.setFileName(file.getName());
+		FileMediaMessageSocketModel fileMedia = new FileMediaMessageSocketModel();		
+		fileMedia.setPath(file.toURI().toASCIIString());
+		fileMedia.setFileName(file.getName());	
 
 		return fileMedia;
 	}

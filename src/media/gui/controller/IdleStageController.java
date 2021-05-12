@@ -14,11 +14,11 @@ import javafx.stage.Stage;
 import media.global.Instances;
 import media.gui.Main;
 import media.interfaces.SocketEventListener;
-import media.model.MediaMessageSocketModel;
+import media.model.ChangeStageSocketModel;
 import media.model.MessageSocketModel;
 import media.model.SocketEventModel;
-import media.model.StatusMessageSocketModel;
-import media.model.YoutubeMessageSocketModel;
+import media.model.SystemCommandMessageSocketModel;
+import media.model.SystemCommands;
 import media.util.SystemInfoService;
 import media.util.UiToolkit;
 
@@ -40,6 +40,9 @@ public class IdleStageController implements SocketEventListener {
 
 	@FXML
 	private Label statusConnectionLabel;
+
+	@FXML
+	private Label systemStatusLabel;
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
@@ -97,23 +100,21 @@ public class IdleStageController implements SocketEventListener {
 	@Override
 	public void messageReceived(MessageSocketModel message) {
 		// TODO Auto-generated method stub
-		if (message instanceof YoutubeMessageSocketModel) {
-			if (active) {
+
+		if (message instanceof ChangeStageSocketModel) {
+			if (((ChangeStageSocketModel) message).getStage() == 0 && !active) {
+				requestShowIdleView();
+			} else if (((ChangeStageSocketModel) message).getStage() == 1 && active) {
 				changeView("fxml/YoutubePlayerStage.fxml", Instances.getYoutubePlayerController());
 				active = false;
-			}
-		}
-		if (message instanceof StatusMessageSocketModel) {
-			if (!active) {
-				changeView("fxml/IdleStage.fxml", this);
-			}
-		}
-		
-		if(message instanceof MediaMessageSocketModel) {
-			if(active) {
+			} else if (((ChangeStageSocketModel) message).getStage() == 2 && active) {
 				changeView("fxml/MediaStage.fxml", Instances.getMediaStageController());
 				active = false;
 			}
+		}
+
+		if (message instanceof SystemCommandMessageSocketModel) {
+			processSystemCommand((SystemCommandMessageSocketModel) message);
 		}
 	}
 
@@ -124,6 +125,22 @@ public class IdleStageController implements SocketEventListener {
 			statusConnectionLabel.setText(event.getHostName() + " : " + event.getStatus().getText());
 		});
 
+	}
+
+	public void requestShowIdleView() {
+		changeView("fxml/IdleStage.fxml", this);
+	}
+
+	private void processSystemCommand(SystemCommandMessageSocketModel command) {
+		if (command.getCommand() == SystemCommands.OFF) {
+			Platform.runLater(() -> {
+				systemStatusLabel.setText("Desligando...");
+			});
+		} else {
+			Platform.runLater(() -> {
+				systemStatusLabel.setText("Erro");
+			});
+		}
 	}
 
 }
